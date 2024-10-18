@@ -101,8 +101,6 @@ const ProductForm = () => {
           Back
         </Button>
       </form>
-
-      {/* Snackbar for alerts */}
       <Snackbar 
         open={snackbarOpen} 
         autoHideDuration={3000} 

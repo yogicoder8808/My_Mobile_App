@@ -1,4 +1,3 @@
-
 import React, { useContext, useEffect, useState } from 'react';
 import {Container,Typography,Button,TextField,Snackbar,Alert,Grid,Card,CardContent,CardMedia,CircularProgress, Box} from '@mui/material';
 import { CartContext } from '../../context/CartContext';
@@ -163,7 +162,6 @@ const Cart = () => {
         </>
       )}
 
-      {/* Snackbar for notifications */}
       <Snackbar
         open={notification.open}
         autoHideDuration={3000}
