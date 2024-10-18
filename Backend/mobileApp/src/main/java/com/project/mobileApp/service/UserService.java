@@ -84,6 +84,22 @@ public class UserService implements UserDetailsService {
         userRepository.delete(user);
     }
 
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+//
+//        List<GrantedAuthority> authorities = user.getRoles().stream()
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+//
+//        return new org.springframework.security.core.userdetails.User(
+//                user.getUsername(),
+//                user.getPassword(),
+//                authorities
+//        );
+//    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
@@ -93,12 +109,17 @@ public class UserService implements UserDetailsService {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
+        // For social login users (OAuth2), use an empty or placeholder password
+        String password = user.getPassword() != null ? user.getPassword() : "";  // Or use "oauth2" as placeholder
+
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
-                user.getPassword(),
+                password,
                 authorities
         );
     }
+
+
     public User registerOrLoginWithFacebook(String facebookId, String name, String email) {
         Optional<User> userOptional = userRepository.findByFacebookId(facebookId);
         User user;
@@ -107,12 +128,14 @@ public class UserService implements UserDetailsService {
         } else {
             user = new User();
             user.setFacebookId(facebookId);
-            user.setName(name);
+//            user.setName(name);
             user.setEmail(email);
             user.setUsername(name);
             user.setRoles(Set.of("ROLE_CUSTOMER"));
+            user.setPassword("");  // Set an empty password for OAuth2 users
             userRepository.save(user);
         }
         return user;
     }
+
 }

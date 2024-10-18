@@ -17,7 +17,7 @@ public class User {
     private String password;
 
     private String facebookId;
-    private String name;
+//    private String name;
     private String email; // If needed for social login
 
     @ElementCollection(fetch = FetchType.EAGER)

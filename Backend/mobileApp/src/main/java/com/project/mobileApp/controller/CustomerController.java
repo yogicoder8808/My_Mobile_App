@@ -31,6 +31,7 @@ public class CustomerController {
     public ResponseEntity<Map<String, Object>> getCustomerDetails(@PathVariable String username) {
         User user = userService.findByUsername(username);
 
+
         Map<String, Object> response = new HashMap<>();
         response.put("username", user.getUsername());
         response.put("cart", cartService.getCart(user.getId()));

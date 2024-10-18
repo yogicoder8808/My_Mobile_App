@@ -31,6 +31,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Lazy
     private UserService userService;
 
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
@@ -56,7 +57,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
             user = new User();
             user.setUsername(facebookUsername);
             user.setFacebookId((String) attributes.get("id"));
-            user.setName((String) attributes.get("name"));
+//            user.setName((String) attributes.get("name"));
             user.setEmail((String) attributes.get("email"));
             user.setRoles(new HashSet<>(Collections.singletonList("ROLE_CUSTOMER")));
             userService.register(user);

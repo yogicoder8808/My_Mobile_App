@@ -17,6 +17,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oauth2User = super.loadUser(userRequest);
@@ -35,7 +36,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         User newUser = new User();
         newUser.setFacebookId(facebookId);
         newUser.setEmail(email);
-        newUser.setName(name);
+//        newUser.setName(name);
         newUser.setUsername(name);
         newUser.setRoles(Collections.singleton("ROLE_CUSTOMER"));
         return userRepository.save(newUser);
